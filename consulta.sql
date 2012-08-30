@@ -1,0 +1,13 @@
+USE [BDIConDatos]
+GO
+select RFC, NombreCompleto,email, Titulo,Estatus,AreasDeInteres, PaginaWebPersonal,ExtensionTelefonica,
+Fotografia, NombreUnidad, NombreDivisionCoordinacionDireccion, 
+NombreDepartamentoArea from Personal
+inner join HistorialDeUnidadesAsignadasAlPersonal on 
+HistorialDeUnidadesAsignadasAlPersonal.RFC=Personal.RFC,
+inner join HistorialDeAreasAsignadasAlPersonal on HistorialDeAreasAsignadasAlPersonal.RFC=Personal.RFC,
+inner join HistorialDeLineasAsignadasAlPersonal on HistorialDeLineasAsignadasAlPersonal.RFC=Personal.RFC
+where CatalogoDeLineas.Estatus=1 and CatalogoDeAreas.Estatus=1 
+and HistorialDeUnidadesAsignadasAlPersonal.IDUnidad=CatalogoDeUnidades.IDUnidad
+and HistorialDeAreasAsignadasAlPersonal.IDDivisionCoordinacionDireccion=CatalogoDeAreas.IDDivisionCoordinacionDireccion
+and HistorialDeLineasAsignadasAlPersonal.IDLineaSubArea=CatalogoDeLineas.IDLineaSubArea
